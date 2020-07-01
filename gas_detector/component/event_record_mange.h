@@ -1,0 +1,130 @@
+#ifndef _EVENT_RECORD_MANAGE_H
+#define _EVENT_RECORD_MANAGE_H
+
+/***不需要连续存储的事件的存储地址************
+	包括：
+	  1. 传感器配置信息
+	  2. 传感器校准信息
+	  3. 电池信息
+	  4. 传感器出厂配置信息 
+	  5. 传感器出厂校准信息
+	  6. 电池出厂信息
+***********************************************/
+#define SENSOR_PARA_ADDR   0X400
+#define DATA_SIZE   32
+#define PARA_LENGTH  10
+#define SENSOR_INIT_PARA_ADDR  (SENSOR_PARA_ADDR+PARA_LENGTH*DATA_SIZE)
+
+#if 0
+#define SENSOR1_CFG_INFO_ADDR			0X400										
+#define SENSOR2_CFG_INFO_ADDR			(SENSOR1_CFG_INFO_ADDR+DATA_SIZE)			
+#define SENSOR3_CFG_INFO_ADDR			(SENSOR1_CFG_INFO_ADDR+2*DATA_SIZE)
+#define SENSOR4_CFG_INFO_ADDR			(SENSOR1_CFG_INFO_ADDR+3*DATA_SIZE)
+	
+#define SENSOR1_CLIB_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+4*DATA_SIZE)
+#define SENSOR2_CLIB_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+5*DATA_SIZE)
+#define SENSOR3_CLIB_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+6*DATA_SIZE)
+#define SENSOR4_CLIB_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+7*DATA_SIZE)
+	
+#define DETECTOR_INFO_ADDR				(SENSOR1_CFG_INFO_ADDR+8*DATA_SIZE)				
+#define BATTERY_INFO_ADDR					(SENSOR1_CFG_INFO_ADDR+9*DATA_SIZE)
+
+#define SENSOR1_INITCFG_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+10*DATA_SIZE)													
+#define SENSOR2_INITCFG_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+11*DATA_SIZE)
+#define SENSOR3_INITCFG_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+12*DATA_SIZE)
+#define SENSOR4_INITCFG_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+13*DATA_SIZE)
+	
+#define SENSOR1_INITCLIB_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+14*DATA_SIZE)
+#define SENSOR2_INITCLIB_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+15*DATA_SIZE)
+#define SENSOR3_INITCLIB_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+16*DATA_SIZE)
+#define SENSOR4_INITCLIB_INFO_ADDR	(SENSOR1_CFG_INFO_ADDR+17*DATA_SIZE)
+	
+#define DETECTOR_INIT_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+18*DATA_SIZE)
+#define BATTERY_INIT_INFO_ADDR		(SENSOR1_CFG_INFO_ADDR+19*DATA_SIZE)
+
+#endif
+
+/************需要连续记录的事件类型*********/
+#define POWER_ON_EVENT								0  
+#define POWER_OFF_EVENT								1
+#define DETEC_CONFIG_EVENT						2
+#define DETEC_CLIB_EVENT							3		
+#define DETEC_ONE_FAULT_EVENT					4
+#define DETEC_TWO_FAULT_EVENT					5
+#define DETEC_THREE_FAULT_EVENT				6
+#define DETEC_FOUR_FAULT_EVENT				7
+#define PUMP_FAULT_EVENT							8
+#define DETEC_ONE_OVER_RANGE_EVENT		9
+#define DETEC_TWO_OVER_RANGE_EVENT		10
+#define DETEC_THREE_OVER_RANGE_EVENT	11
+#define DETEC_FOUR_OVER_RANGE_EVENT		12
+#define DETEC_ONE_A1_ALARM_EVENT			13
+#define DETEC_TWO_A1_ALARM_EVENT			14
+#define DETEC_THREE_A1_ALARM_EVENT		15
+#define DETEC_FOUR_A1_ALARM_EVENT			16
+#define DETEC_ONE_A2_ALARM_EVENT			17
+#define DETEC_TWO_A2_ALARM_EVENT			18
+#define DETEC_THREE_A2_ALARM_EVENT		19
+#define DETEC_FOUR_A2_ALARM_EVENT			20
+#define CO_DETEC_TWA_EVENT						21
+#define H2S_DETEC_TWA_EVENT						22
+#define CO_DETEC_STEL_EVENT						23
+#define H2S_DETEC_STEL_EVENT					24
+
+#define EVENT_TYPE_NUM								25
+#define EVENT_RECORD_NUM              99
+#define RECORD_FULL_FLAG             0x55
+
+/*********需要连续记录的事件地址******/
+#define RECORD_START_ADDR						0x1000	
+#define BLOCK_SIZE             			0x320
+#define INDEX_OFFSET								(BLOCK_SIZE-2)
+#define FLAG_OFFSET									(BLOCK_SIZE-1)
+#define RECORD_LENGTH 							8
+
+#if 0
+#define POWER_ON_EVENT_ADDR						0X1000
+#define POWER_OFF_EVENT_ADDR					(POWER_ON_EVENT_ADDR+RECORD_SIZE)	
+#define SENSOR_CONFIG_EVENT_ADDR			(POWER_ON_EVENT_ADDR+2*RECORD_SIZE)									
+#define SENSOR_CLIB_EVENT_ADDR				(POWER_ON_EVENT_ADDR+3*RECORD_SIZE)					
+#define SENSOR_ONE_FAULT_EVENT_ADDR		(POWER_ON_EVENT_ADDR+4*RECORD_SIZE)		
+#define SENSOR_TWO_FAULT_EVENT_ADDR				5
+#define SENSOR_THREE_FAULT_EVENT_AD			6
+#define SENSOR_FOUR_FAULT_EVENT				7
+#define PUMP_FAULT_EVENT							8
+
+#define SENSOR1_A1_EVENT_ADDR					(POWER_ON_EVENT_ADDR+4*RECORD_SIZE)
+#define SENSOR2_A1_EVENT_ADDR					(POWER_ON_EVENT_ADDR+5*RECORD_SIZE)
+#define SENSOR3_A1_EVENT_ADDR					(POWER_ON_EVENT_ADDR+6*RECORD_SIZE)
+#define SENSOR4_A1_EVENT_ADDR					(POWER_ON_EVENT_ADDR+7*RECORD_SIZE)
+
+#define SENSOR1_A2_EVENT_ADDR					(POWER_ON_EVENT_ADDR+8*RECORD_SIZE)
+#define SENSOR2_A2_EVENT_ADDR					(POWER_ON_EVENT_ADDR+9*RECORD_SIZE)
+#define SENSOR3_A2_EVENT_ADDR					(POWER_ON_EVENT_ADDR+10*RECORD_SIZE)
+#define SENSOR4_A2_EVENT_ADDR					(POWER_ON_EVENT_ADDR+11*RECORD_SIZE)
+
+#define SENSOR1_OVER_RANGE_EVENT_ADDR		(POWER_ON_EVENT_ADDR+12*RECORD_SIZE)		
+#define SENSOR2_OVER_RANGE_EVENT_ADDR		(POWER_ON_EVENT_ADDR+13*RECORD_SIZE)
+#define SENSOR3_OVER_RANGE_EVENT_ADDR		(POWER_ON_EVENT_ADDR+14*RECORD_SIZE)
+#define SENSOR4_OVER_RANGE_EVENT_ADDR		(POWER_ON_EVENT_ADDR+15*RECORD_SIZE)
+
+#define CO_TWA_EVENT_ADDR							(POWER_ON_EVENT_ADDR+16*RECORD_SIZE)
+#define H2S_TWA_EVENT_ADDR						(POWER_ON_EVENT_ADDR+17*RECORD_SIZE)
+#define CO_STEL_EVENT_ADDR						(POWER_ON_EVENT_ADDR+18*RECORD_SIZE)
+#define H2S_STEL_EVENT_ADDR						(POWER_ON_EVENT_ADDR+19*RECORD_SIZE)
+#endif
+
+extern unsigned char event_table_init(void);
+extern unsigned char event_request(unsigned char event_type);
+extern unsigned char event_clear(unsigned char event_type);
+extern unsigned char clear_all_record(void);
+extern signed char check_event_request(void);
+extern unsigned char write_record(unsigned char event_type,unsigned int record_data
+																												,unsigned char *time);
+extern unsigned char read_record_data(unsigned char *buf,unsigned char event_type
+																								  ,unsigned char record_num);
+extern unsigned char read_record_info(unsigned char *buf,unsigned char event_type);
+
+#endif
+
+
