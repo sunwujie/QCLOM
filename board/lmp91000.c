@@ -387,13 +387,13 @@ unsigned char lmp91000_init(unsigned char O2_pag,unsigned char O2_bias,unsigned 
   return 0;
 }
 
-/*
+
 unsigned char lmp910x_poweroff(void)
 {  
 
 	
   return 0;
 }
-*/
+
 
 
