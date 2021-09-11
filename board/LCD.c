@@ -143,6 +143,11 @@ void lcd_update(unsigned char *ptr)
     }
     iic_stop();         
 }
+void lcd_init_test(void)
+{
+	printf("ok!");
+}
+
 
 
 
